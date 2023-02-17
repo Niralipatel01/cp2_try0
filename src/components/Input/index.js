@@ -1,0 +1,125 @@
+import { ErrorMessage } from "../../components/ErrorMessage";
+import React from "react";
+import PropTypes from "prop-types";
+
+const variants = {
+  srcOutlineBluegray200:
+    "bg-white_A700 border border-bluegray_200 border-solid",
+  srcFillGray51: "bg-gray_51",
+  srcOutlineBlack9000c: "bg-white_A700 shadow-bs",
+  OutlineIndigo51: "bg-white_A700 border border-indigo_51 border-solid",
+  OutlineIndigo51_1: "border border-indigo_51 border-solid",
+  FillDeeporange3006c: "bg-deep_orange_300_6c",
+  FillGray51: "bg-gray_51",
+};
+const shapes = {
+  srcRoundedBorder4: "rounded-radius4",
+  RoundedBorder4: "rounded-radius4",
+  CustomBorderBL4:
+    "rounded-bl-[4px] rounded-br-[4px] rounded-tl-[0] rounded-tr-[4px]",
+  RoundedBorder8: "rounded-radius8",
+};
+const sizes = {
+  smSrc: "pr-[13px] py-[13px]",
+  mdSrc: "pb-[16px] pt-[21px]",
+  sm: "pb-[6px] pl-[3px] pr-[6px] pt-[12px]",
+  md: "pb-[22px] pr-[17px] pt-[17px]",
+  lg: "pb-[22px] pt-[17px] px-[17px]",
+  xl: "p-[19px]",
+  "2xl": "pr-[19px] py-[19px]",
+  "3xl": "pb-[16px] pt-[21px] px-[16px]",
+  "4xl": "pb-[16px] pr-[16px] pt-[21px]",
+  "5xl": "sm:pr-[20px] pr-[23px] py-[23px]",
+};
+
+const Input = React.forwardRef(
+  (
+    {
+      wrapClassName = "",
+      className = "",
+      name,
+      placeholder,
+      type = "text",
+      children,
+      errors = [],
+      label = "",
+      prefix,
+      suffix,
+      shape,
+      variant,
+      size,
+      ...restProps
+    },
+    ref
+  ) => {
+    return (
+      <>
+        <div
+          className={`${wrapClassName} ${shapes[shape] || ""} ${
+            variants[variant] || ""
+          } ${sizes[size] || ""}`}
+        >
+          {!!label && label}
+          {!!prefix && prefix}
+          <input
+            ref={ref}
+            className={`${className} bg-transparent border-0`}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            {...restProps}
+          />
+          {!!suffix && suffix}
+        </div>
+        {!!errors && <ErrorMessage errors={errors} />}
+      </>
+    );
+  }
+);
+
+Input.propTypes = {
+  wrapClassName: PropTypes.string,
+  className: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  type: PropTypes.string,
+  shape: PropTypes.oneOf([
+    "srcRoundedBorder4",
+    "RoundedBorder4",
+    "CustomBorderBL4",
+    "RoundedBorder8",
+  ]),
+  variant: PropTypes.oneOf([
+    "srcOutlineBluegray200",
+    "srcFillGray51",
+    "srcOutlineBlack9000c",
+    "OutlineIndigo51",
+    "OutlineIndigo51_1",
+    "FillDeeporange3006c",
+    "FillGray51",
+  ]),
+  size: PropTypes.oneOf([
+    "smSrc",
+    "mdSrc",
+    "sm",
+    "md",
+    "lg",
+    "xl",
+    "2xl",
+    "3xl",
+    "4xl",
+    "5xl",
+  ]),
+};
+Input.defaultProps = {
+  wrapClassName: "",
+  className: "",
+  name: "",
+  placeholder: "",
+  type: "text",
+  shape: "",
+  variant: "",
+  size: "",
+};
+
+export { Input };
